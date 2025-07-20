@@ -398,31 +398,31 @@ void SceneManager::PrepareScene()
 	// in the rendered 3D scene
 
 	m_basicMeshes->LoadPlaneMesh();
-	//**** Soda can required meshes ****//
+	//**** Required meshes ****//
 	m_basicMeshes->LoadTaperedCylinderMesh();
 	m_basicMeshes->LoadCylinderMesh();
 	m_basicMeshes->LoadSphereMesh();
-	//customized Torus for soda can specifically, I lowered the radius to make it thinner
+	//customized Torus, I lowered the radius to make it thinner
 	//and lowered segments as well since it's such a small part repeated (sort of just guessed on what might be good compared to default)
 	m_basicMeshes->LoadTorusMesh(1, 0.06f, 24, 8);
 
 	/*****************************************/
-	//// Materials for soda can -- entire can was brown so just disabling for now. Need to add lighting I guess
+	//// Materials for soda can -- entire can was brown so just disabling for now. Need to add lighting first
 	//OBJECT_MATERIAL silverBase;
 	//// vec3 diffuseColor, specularColor | float shininess | string tag
-	//silverBase.diffuseColor = glm::vec3(0.396f, 0.341f, 0.275f);
+	//silverBase.diffuseColor = glm::vec3(0.396f, 0.341f, 0.275f); //silver
 	//silverBase.specularColor = glm::vec3(0.9f, 0.9f, 0.9f); // bright specular
 	//silverBase.shininess = 128.0f; // high shininess for the polished aluminum
 	//silverBase.tag = "silver_base";
 	//m_objectMaterials.push_back(silverBase);
 	//OBJECT_MATERIAL redBody;
-	//redBody.diffuseColor = glm::vec3(0.427f, 0.039f, 0.0f);
+	//redBody.diffuseColor = glm::vec3(0.427f, 0.039f, 0.0f); //red
 	//redBody.specularColor = glm::vec3(0.3f, 0.3, 0.3f);
 	//redBody.shininess = 32.0f; //less specular and less shiny
 	//redBody.tag = "red_body";
 	//m_objectMaterials.push_back(redBody);
 	//OBJECT_MATERIAL brightSilver;
-	//brightSilver.diffuseColor = glm::vec3(0.500f, 0.410f, 0.350f);
+	//brightSilver.diffuseColor = glm::vec3(0.500f, 0.410f, 0.350f); //bright silver
 	//brightSilver.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
 	//brightSilver.shininess = 256.0f;
 	//brightSilver.tag = "bright_silver";
@@ -616,7 +616,7 @@ void SceneManager::RenderScene()
 	/****************************************************************/
 
 	/****************************************************************/
-	// Lamp Structure
+	// Lamp Structure (currently brown so you can see the layers, might change later to black)
 	/****************************************************************/
 	// flat cylinder base
 	scaleXYZ = glm::vec3(2.5f, 0.3f, 2.5f);
@@ -625,8 +625,7 @@ void SceneManager::RenderScene()
 	ZrotationDegrees = 0.0f;
 	positionXYZ = glm::vec3(15.0f, 0.0f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(0.4f, 0.2f, 0.1f, 1);
-	SetShaderColor(0.300f, 0.082f, 0.039f, 1); //black
+	SetShaderColor(0.300f, 0.082f, 0.039f, 1); //change back to black
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// tapered cylinder base piece
@@ -636,30 +635,89 @@ void SceneManager::RenderScene()
 	ZrotationDegrees = 0.0f;
 	positionXYZ = glm::vec3(15.0f, 0.3f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(0.4f, 0.2f, 0.1f, 1);
-	SetShaderColor(0.252f, 0.082f, 0.039f, 1); //black
+	SetShaderColor(0.252f, 0.082f, 0.039f, 1); 
 	m_basicMeshes->DrawTaperedCylinderMesh();
 	/****************************************************************/
 	// elongated cylinder pole
-	scaleXYZ = glm::vec3(0.3f, 15.0f, 0.4f);
+	scaleXYZ = glm::vec3(0.3f, 15.0f, 0.3f);
 	XrotationDegrees = 0.0f;
 	YrotationDegrees = 0.0f;
 	ZrotationDegrees = 0.0f;
 	positionXYZ = glm::vec3(15.0f, 0.8f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(0.4f, 0.2f, 0.1f, 1);
-	SetShaderColor(0.302f, 0.082f, 0.039f, 1); //black
+	SetShaderColor(0.302f, 0.082f, 0.039f, 1); 
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// metal socket for bulb
+	scaleXYZ = glm::vec3(0.3f, 0.7f, 0.3f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 15.8f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.396f, 0.341f, 0.275f, 1); //silver
+	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// metal switch on side of socket
+	scaleXYZ = glm::vec3(0.05f, 0.3f, 0.05f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 90.0f; //rotate to be angled as a switch
+	positionXYZ = glm::vec3(14.8f, 16.2f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
+	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// bulb
+	scaleXYZ = glm::vec3(0.5f, 1.2f, 0.5f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 16.5f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.500f, 0.410f, 0.350f, 1); //bright silver
+	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// torus metal hoop (meant to support shade)
+	scaleXYZ = glm::vec3(1.0f, 1.4f, 1.0f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 90.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 17.7f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
+	m_basicMeshes->DrawTorusMesh();
+	/****************************************************************/
+	// top emblem on hoop (sphere)
+	scaleXYZ = glm::vec3(0.15f, 0.25f, 0.15f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 19.4f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
+	m_basicMeshes->DrawSphereMesh();
 	/****************************************************************/
 	// lamp shade
+	scaleXYZ = glm::vec3(2.5f, 3.3f, 2.5f);
+	XrotationDegrees = 0.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 16.0f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.941f, 0.675f, 0.341f, 1); //beige
+	m_basicMeshes->DrawTaperedCylinderMesh(false, false, true);
+	//drawtop = false, drawbottom = false, drawsides = true (for empty lamp shade)
+	/****************************************************************/
+	// Torus connecting hoop to shade
+	scaleXYZ = glm::vec3(1.2f, 0.4f, 0.8f);
+	XrotationDegrees = 90.0f;
+	YrotationDegrees = 0.0f;
+	ZrotationDegrees = 0.0f;
+	positionXYZ = glm::vec3(15.0f, 19.0f, -5.5f);
+	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
+	SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
+	m_basicMeshes->DrawTorusMesh();
 
 	/****************************************************************/
 	// Stool Structure:
@@ -728,6 +786,7 @@ void SceneManager::RenderScene()
 	//SetShaderColor(0.4f, 0.2f, 0.1f, 1);
 	SetShaderColor(0.102f, 0.082f, 0.039f, 1);
 	m_basicMeshes->DrawCylinderMesh();
+	/****************************************************************/
 
 	/****************************************************************/
 	// Arcade Machine: box body, box+prism for controls, box+prism for screen housing, plane for screen, box on top
