@@ -40,6 +40,9 @@ namespace
 	// the following variable is false when orthographic projection
 	// is off and true when it is on
 	bool bOrthographicProjection = false;
+
+	// counter variable for changing orthographic projection
+	int orthoCounter = 0;
 }
 
 /***********************************************************
@@ -55,7 +58,7 @@ ViewManager::ViewManager(
 	m_pWindow = NULL;
 	g_pCamera = new Camera();
 	// default camera view parameters
-	g_pCamera->Position = glm::vec3(0.0f, 5.0f, 12.0f);
+	g_pCamera->Position = glm::vec3(0.0f, 10.0f, 12.0f);
 	g_pCamera->Front = glm::vec3(0.0f, -0.5f, -2.0f);
 	g_pCamera->Up = glm::vec3(0.0f, 1.0f, 0.0f);
 	g_pCamera->Zoom = 80;
@@ -105,8 +108,15 @@ GLFWwindow* ViewManager::CreateDisplayWindow(const char* windowTitle)
 	// tell GLFW to capture all mouse events
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+	// this callback is used to receive window resize events
+	glfwSetFramebufferSizeCallback(window, &ViewManager::Window_Resize_Callback);
+	// this callback is used to receive scroll wheel events
+	glfwSetScrollCallback(window, &ViewManager::Mouse_Scroll_Wheel_Callback);
 	// this callback is used to receive mouse moving events
 	glfwSetCursorPosCallback(window, &ViewManager::Mouse_Position_Callback);
+	// this callback is used to receive mouse button press events
+	glfwSetMouseButtonCallback(window, &ViewManager::Mouse_Button_Callback);
+
 
 	// enable blending for supporting tranparent rendering
 	glEnable(GL_BLEND);
@@ -115,6 +125,47 @@ GLFWwindow* ViewManager::CreateDisplayWindow(const char* windowTitle)
 	m_pWindow = window;
 
 	return(window);
+}
+/***********************************************************
+ *  MouseButtonCallback()
+ *
+ *  This method is automatically called from GLFW whenever
+ *  the mouse button is pressed or released.
+ ***********************************************************/
+// GLFW_PRESS / GLFW_RELEASE, no mods
+void ViewManager::Mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
+{
+	// if the right mouse button is pressed
+	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
+	{
+		// process the mouse movement for the camera
+		g_pCamera->ProcessMousePress(false, true);
+	}
+}
+
+/***********************************************************
+ *  Window_Resize_Callback() (New functionality)
+ *
+ *  This method is automatically called from GLFW whenever
+ *  the display window is resized. (by OS or user resize)
+ ***********************************************************/
+void ViewManager::Window_Resize_Callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
+/***********************************************************
+ *  Mouse_Scroll_Wheel_Callback() (New functionality)
+ *
+ *  This method is automatically called from GLFW whenever
+ *  the mouse scroll wheel is used / scrolls.
+ *  Up = slow, Down = fast
+ ***********************************************************/
+void ViewManager::Mouse_Scroll_Wheel_Callback(GLFWwindow* window, double xOffset, double yOffset)
+{
+	// adjust speed of movement at which camera travels
+	g_pCamera->ProcessMouseScroll(static_cast<float>(yOffset));
+
 }
 
 /***********************************************************
@@ -180,6 +231,65 @@ void ViewManager::ProcessKeyboardEvents()
 	{
 		g_pCamera->ProcessKeyboard(RIGHT, gDeltaTime);
 	}
+
+	// process camera panning up and down (New functionality)
+	if (glfwGetKey(m_pWindow, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		g_pCamera->ProcessKeyboard(UP, gDeltaTime);
+	}
+	if (glfwGetKey(m_pWindow, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		g_pCamera->ProcessKeyboard(DOWN, gDeltaTime);
+	}
+
+	/*******************************************************************/
+	// process camera view switching between orthographic and perspective
+	/* Multiple views of orthographic projection*/
+	/*******************************************************************/
+	//front ortho
+	if (glfwGetKey(m_pWindow, GLFW_KEY_O) == GLFW_PRESS)
+	{
+		// change to front orthographic projection
+		bOrthographicProjection = true;
+		// camera settings to show a front orthographic view
+		g_pCamera->Position = glm::vec3(0.0f, 5.0f, 12.0f);
+		// y 5.0 position puts it at ground level which doesnt show plane depending on angle of scene
+		g_pCamera->Up = glm::vec3(0.0f, 1.0f, 0.0f);
+		g_pCamera->Front = glm::vec3(0.0f, 0.0f, -1.0f);
+		
+	}
+	// side ortho
+	if (glfwGetKey(m_pWindow, GLFW_KEY_I) == GLFW_PRESS)
+	{
+		// change to side orthographic projection
+		bOrthographicProjection = true;
+		// change the camera settings to show a side orthographic view
+		g_pCamera->Position = glm::vec3(12.0f, 5.0f, 0.0f);
+		g_pCamera->Up = glm::vec3(0.0f, 1.0f, 0.0f);
+		g_pCamera->Front = glm::vec3(-1.0f, 0.0f, 0.0f);
+	}
+	// top ortho
+	if (glfwGetKey(m_pWindow, GLFW_KEY_U) == GLFW_PRESS)
+	{
+		// change to a multi-view orthographic projection
+		bOrthographicProjection = true;
+		// change the camera settings to show a top orthographic view
+		g_pCamera->Position = glm::vec3(0.0f, 16.0f, 2.0f);
+		g_pCamera->Up = glm::vec3(-1.0f, 0.0f, 0.0f);
+		g_pCamera->Front = glm::vec3(0.0f, -1.0f, 0.0f);
+	}
+	// perspective
+	if (glfwGetKey(m_pWindow, GLFW_KEY_P) == GLFW_PRESS)
+	{
+		// change to perspective projection
+		bOrthographicProjection = false;
+		// default perspective view parameters
+		g_pCamera->Position = glm::vec3(0.0f, 10.0f, 12.0f);
+		g_pCamera->Front = glm::vec3(0.0f, -0.5f, -2.0f);
+		g_pCamera->Up = glm::vec3(0.0f, 1.0f, 0.0f);
+		g_pCamera->Zoom = 80;
+		
+	}
 }
 
 /***********************************************************
@@ -207,8 +317,21 @@ void ViewManager::PrepareSceneView()
 	view = g_pCamera->GetViewMatrix();
 
 	// define the current projection matrix
-	projection = glm::perspective(glm::radians(g_pCamera->Zoom), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
-
+	if (bOrthographicProjection == false)
+	{
+		// perspective projection
+		projection = glm::perspective(glm::radians(g_pCamera->Zoom), (GLfloat)WINDOW_WIDTH / (GLfloat)WINDOW_HEIGHT, 0.1f, 100.0f);
+	}
+	else
+	{
+		// wasn't really sure what settings to do, this was my attempt that seems identical to the sample code
+		// g_pCamera->Zoom can be replaced with 80.0f default fixed zoom level, no RMB zoom allowed if desired.
+		projection = glm::ortho(
+			-(GLfloat)WINDOW_WIDTH / (2.0f * g_pCamera->Zoom), (GLfloat)WINDOW_WIDTH / (2.0f * g_pCamera->Zoom),
+			-(GLfloat)WINDOW_HEIGHT / (2.0f * g_pCamera->Zoom), (GLfloat)WINDOW_HEIGHT / (2.0f * g_pCamera->Zoom),
+			0.1f, 100.0f);
+	}
+	
 	// if the shader manager object is valid
 	if (NULL != m_pShaderManager)
 	{

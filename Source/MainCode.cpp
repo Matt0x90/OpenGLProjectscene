@@ -86,6 +86,18 @@ int main(int argc, char* argv[])
 	g_SceneManager = new SceneManager(g_ShaderManager);
 	g_SceneManager->PrepareScene();
 
+	// Output display message describing keyboard controls //
+	std::cout << "\n********** Keyboard Controls **********\n";
+	std::cout << "ESC - Exit the application\n";
+	std::cout << "W - Move camera forward\t" << "S - Move camera backward\n";
+	std::cout << "A - Move camera left\t" << "D - Move camera right\n";
+	std::cout << "Q - Move camera up\t" << "E - Move camera down\n";
+	std::cout << "O - Orthographic Front view\n"; //would prefer just using 1,2,3
+	std::cout << "I - Orthographic Side View\n";
+	std::cout << "U - Orthographic Top View\n";
+	std::cout << "P - Perspective projection view\n";
+	std::cout << "Right Mouse Button Toggle - Zoom in and out\n";
+
 	// loop will keep running until the application is closed 
 	// or until an error has occurred
 	while (!glfwWindowShouldClose(g_Window))

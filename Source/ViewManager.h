@@ -26,6 +26,13 @@ public:
 
 	// mouse position callback for mouse interaction with the 3D scene
 	static void Mouse_Position_Callback(GLFWwindow* window, double xMousePos, double yMousePos);
+	// frame buffer size callback for resizing the OpenGL display window
+	static void Window_Resize_Callback(GLFWwindow* window, int width, int height);
+	// scroll wheel callback for mouse scroll wheel interaction with the 3D scene
+	// up is slower, down is faster
+	static void Mouse_Scroll_Wheel_Callback(GLFWwindow* window, double xOffset, double yOffset);
+	// mouse button callback for mouse button interaction with the 3D scene
+	static void Mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods);
 
 private:
 	// pointer to shader manager object
