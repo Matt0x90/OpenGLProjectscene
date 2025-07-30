@@ -97,6 +97,7 @@ int main(int argc, char* argv[])
 	std::cout << "U - Orthographic Top View\n";
 	std::cout << "P - Perspective projection view\n";
 	std::cout << "Right Mouse Button Toggle - Zoom in and out\n";
+	std::cout << "Middle Mouse Button Scroll - Change Movement speed\n";
 
 	// loop will keep running until the application is closed 
 	// or until an error has occurred
