@@ -361,8 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-# Ignore these file types for language breakdown, they're just includes
-*.html linguist-detectable=false
-*.css  linguist-detectable=false
-*.js   linguist-detectable=false
