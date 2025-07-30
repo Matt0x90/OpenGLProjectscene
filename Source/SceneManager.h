@@ -42,6 +42,7 @@ public:
 		float shininess;
 		std::string tag;
 	};
+	int FindTextureID(std::string tag); //public for testing purposes
 
 private:
 	// pointer to shader manager object
@@ -50,6 +51,7 @@ private:
 	ShapeMeshes* m_basicMeshes;
 	// total number of loaded textures
 	int m_loadedTextures;
+
 	// loaded textures info
 	TEXTURE_INFO m_textureIDs[16];
 	// defined object materials
@@ -62,7 +64,7 @@ private:
 	// free the loaded OpenGL textures
 	void DestroyGLTextures();
 	// find a loaded texture by tag
-	int FindTextureID(std::string tag);
+	//int FindTextureID(std::string tag);
 	int FindTextureSlot(std::string tag);
 	// find a defined material by tag
 	bool FindMaterial(std::string tag, OBJECT_MATERIAL& material);
@@ -102,4 +104,13 @@ public:
 	void PrepareScene();
 	void RenderScene();
 
+	// load scence textures from image files
+	void LoadSceneTextures();
+
+	// methods for rendering the objects in the scene
+	void RenderWalls();  // floor, walls, trim, ceiling
+	void RenderSoda();   // soda can
+	void RenderChair();  // stool
+	void RenderLamp();   // lamp
+	void RenderArcade(); // arcade machine
 };

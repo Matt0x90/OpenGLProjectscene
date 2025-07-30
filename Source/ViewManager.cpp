@@ -19,8 +19,8 @@
 namespace
 {
 	// Variables for window width and height
-	const int WINDOW_WIDTH = 1000;
-	const int WINDOW_HEIGHT = 800;
+	const int WINDOW_WIDTH = 1500; //1000
+	const int WINDOW_HEIGHT = 1200; //800
 	const char* g_ViewName = "view";
 	const char* g_ProjectionName = "projection";
 
@@ -41,8 +41,6 @@ namespace
 	// is off and true when it is on
 	bool bOrthographicProjection = false;
 
-	// counter variable for changing orthographic projection
-	int orthoCounter = 0;
 }
 
 /***********************************************************
@@ -118,7 +116,7 @@ GLFWwindow* ViewManager::CreateDisplayWindow(const char* windowTitle)
 	glfwSetMouseButtonCallback(window, &ViewManager::Mouse_Button_Callback);
 
 
-	// enable blending for supporting tranparent rendering
+	// enable blending for supporting transparent rendering
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -139,7 +137,15 @@ void ViewManager::Mouse_Button_Callback(GLFWwindow* window, int button, int acti
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 	{
 		// process the mouse movement for the camera
-		g_pCamera->ProcessMousePress(false, true);
+		bool rightButtonPressed = button;
+		if (rightButtonPressed && g_pCamera->Zoom != 45.0f)
+		{
+			g_pCamera->Zoom = 45.0f;
+		}
+		else if (rightButtonPressed && g_pCamera->Zoom == 45.0f)
+		{
+			g_pCamera->Zoom = 80.0f;
+		}
 	}
 }
 
@@ -164,7 +170,13 @@ void ViewManager::Window_Resize_Callback(GLFWwindow* window, int width, int heig
 void ViewManager::Mouse_Scroll_Wheel_Callback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	// adjust speed of movement at which camera travels
-	g_pCamera->ProcessMouseScroll(static_cast<float>(yOffset));
+	//g_pCamera->ProcessMouseScroll(static_cast<float>(yOffset));
+	// updated to not call MouseScroll since it's tied to Zoom by default.
+	g_pCamera->MovementSpeed += static_cast<float>(yOffset);
+	if (g_pCamera->MovementSpeed < 1.0f)
+		g_pCamera->MovementSpeed = 1.0f;
+	if (g_pCamera->MovementSpeed > 45.0f)
+		g_pCamera->MovementSpeed = 45.0f;
 
 }
 
