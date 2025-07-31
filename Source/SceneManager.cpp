@@ -176,8 +176,10 @@ void SceneManager::DestroyGLTextures()
 {
 	for (int i = 0; i < m_loadedTextures; i++)
 	{
-		glGenTextures(1, &m_textureIDs[i].ID);
+		//glGenTextures(1, &m_textureIDs[i].ID); // shouldn't this be glDeleteTextures?
+		glDeleteTextures(1, &m_textureIDs[i].ID);
 	}
+	m_loadedTextures = 0; // reset counter if utilized in future changes.
 }
 
 /***********************************************************
