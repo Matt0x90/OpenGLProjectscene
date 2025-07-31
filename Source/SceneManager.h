@@ -42,7 +42,6 @@ public:
 		float shininess;
 		std::string tag;
 	};
-	int FindTextureID(std::string tag); //public for testing purposes
 
 private:
 	// pointer to shader manager object
@@ -64,7 +63,7 @@ private:
 	// free the loaded OpenGL textures
 	void DestroyGLTextures();
 	// find a loaded texture by tag
-	//int FindTextureID(std::string tag);
+	int FindTextureID(std::string tag);
 	int FindTextureSlot(std::string tag);
 	// find a defined material by tag
 	bool FindMaterial(std::string tag, OBJECT_MATERIAL& material);
