@@ -11,16 +11,16 @@ This project required us to pick a scene to recreate in OpenGL. This involved ad
 * Perspective Projection View: P
 * Middle Mouse Button Scroll changes movement speed (up/down)
 * Right Mouse Button Toggles Zoom. (RMB)
+* Left Mouse Button Toggles FlashLight. (LMB)
 * Console Output for controls/menu
 * Utilized the following: OpenGL, GLEW, GLFW, and glm.
 * Separated Logic and utilized OOP principles. 
-* DoxyDocumentaion
+* Will add documentation on final version.
 
 
 ## TODO:
- * Lighting.
- * Material properties.
- * Decide on final scene textures after.
+ * Modify final material properties.
+ * Add emissive for screen/bulb maybe. 
 
 
 ## Pictures During Progress
@@ -31,11 +31,15 @@ Shaders only, no textures:
 <img width="400" height="325" alt="image" src="https://github.com/user-attachments/assets/16b12b4b-6c24-402b-aa68-de01171cc6f5" />
 
 
-Textures added (not final scene):
+Textures added:
 
 
 <img width="400" height="325" alt="image" src="https://github.com/user-attachments/assets/3f3a9e2e-61dc-4cc9-a26e-f471f48107a2" />
 
+
+Light and material effects added:
+
+<img width="400" height="325" alt="image" src="https://github.com/user-attachments/assets/1563da49-ad11-4590-94a5-703ff32cd91a" />
 
 
 
