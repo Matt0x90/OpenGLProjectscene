@@ -41,6 +41,9 @@ namespace
 	// is off and true when it is on
 	bool bOrthographicProjection = false;
 
+	// flashlight
+	bool g_FlashlightOn = false;
+
 }
 
 /***********************************************************
@@ -130,22 +133,22 @@ GLFWwindow* ViewManager::CreateDisplayWindow(const char* windowTitle)
  *  This method is automatically called from GLFW whenever
  *  the mouse button is pressed or released.
  ***********************************************************/
-// GLFW_PRESS / GLFW_RELEASE, no mods
 void ViewManager::Mouse_Button_Callback(GLFWwindow* window, int button, int action, int mods)
+// mods means modifier keys held down during action event, like shift/control/alt
 {
+	// toggle flashlight with left mouse button
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	{
+		g_FlashlightOn = !g_FlashlightOn;  // toggle it on/off
+	}
+
 	// if the right mouse button is pressed
 	if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS)
 	{
-		// process the mouse movement for the camera
-		bool rightButtonPressed = button;
-		if (rightButtonPressed && g_pCamera->Zoom != 45.0f)
-		{
-			g_pCamera->Zoom = 45.0f;
-		}
-		else if (rightButtonPressed && g_pCamera->Zoom == 45.0f)
-		{
+		if (g_pCamera->Zoom == 45.0f)
 			g_pCamera->Zoom = 80.0f;
-		}
+		else
+			g_pCamera->Zoom = 45.0f;
 	}
 }
 
@@ -220,39 +223,25 @@ void ViewManager::ProcessKeyboardEvents()
 {
 	// close the window if the escape key has been pressed
 	if (glfwGetKey(m_pWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
 		glfwSetWindowShouldClose(m_pWindow, true);
-	}
 
 	// process camera zooming in and out
 	if (glfwGetKey(m_pWindow, GLFW_KEY_W) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(FORWARD, gDeltaTime);
-	}
 	if (glfwGetKey(m_pWindow, GLFW_KEY_S) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(BACKWARD, gDeltaTime);
-	}
 
 	// process camera panning left and right
 	if (glfwGetKey(m_pWindow, GLFW_KEY_A) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(LEFT, gDeltaTime);
-	}
 	if (glfwGetKey(m_pWindow, GLFW_KEY_D) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(RIGHT, gDeltaTime);
-	}
 
 	// process camera panning up and down (New functionality)
 	if (glfwGetKey(m_pWindow, GLFW_KEY_Q) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(UP, gDeltaTime);
-	}
 	if (glfwGetKey(m_pWindow, GLFW_KEY_E) == GLFW_PRESS)
-	{
 		g_pCamera->ProcessKeyboard(DOWN, gDeltaTime);
-	}
 
 	/*******************************************************************/
 	// process camera view switching between orthographic and perspective
@@ -353,5 +342,10 @@ void ViewManager::PrepareSceneView()
 		m_pShaderManager->setMat4Value(g_ProjectionName, projection);
 		// set the view position of the camera into the shader for proper rendering
 		m_pShaderManager->setVec3Value("viewPosition", g_pCamera->Position);
+
+		// This is for the flashlight
+		m_pShaderManager->setVec3Value("spotLight.position", g_pCamera->Position);
+		m_pShaderManager->setVec3Value("spotLight.direction", g_pCamera->Front);
+		m_pShaderManager->setBoolValue("spotLight.bActive", g_FlashlightOn); //change bool state depending on mouse press
 	}
 }

@@ -12,7 +12,7 @@
 #include "ShaderManager.h"
 #include "ShapeMeshes.h"
 
-#include <string>
+//#include <string> // this is already included right?
 #include <vector>
 
 /***********************************************************
@@ -50,7 +50,6 @@ private:
 	ShapeMeshes* m_basicMeshes;
 	// total number of loaded textures
 	int m_loadedTextures;
-
 	// loaded textures info
 	TEXTURE_INFO m_textureIDs[16];
 	// defined object materials
@@ -105,6 +104,10 @@ public:
 
 	// load scence textures from image files
 	void LoadSceneTextures();
+	// define light sources for the 3D scene
+	void SetupSceneLights();
+	// define the object materials for lighting
+	void DefineObjectMaterials();
 
 	// methods for rendering the objects in the scene
 	void RenderWalls();  // floor, walls, trim, ceiling

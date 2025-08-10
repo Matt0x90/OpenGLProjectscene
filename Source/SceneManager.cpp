@@ -432,6 +432,190 @@ void SceneManager::LoadSceneTextures()
 }
 
 /***********************************************************
+  *  DefineObjectMaterials()
+  *
+  *  This method is used for configuring the various material
+  *  settings for all of the objects within the 3D scene.
+  ***********************************************************/
+void SceneManager::DefineObjectMaterials()
+{
+	/* 
+	 * Diffuse material color: How much of each color the surface reflects. (color filter of sorts)
+	 * (0.3, 0.3, 0.4) = reflection of 30% red, 30% green, 40% blue.
+	 * Specular material color: Highlight strength.
+	 * Shininess: How tight/focused the highlight is. (spread)
+	 * 8-256, low is barely visible and very spread out highlight.
+	 * High is a small/tight highlight area, like glass.
+	 */
+
+	// floor
+	OBJECT_MATERIAL floorMaterial;
+	floorMaterial.diffuseColor = glm::vec3(0.45f, 0.45f, 0.45f);
+	floorMaterial.specularColor = glm::vec3(0.12f, 0.12f, 0.12f);
+	floorMaterial.shininess = 8.0;
+	floorMaterial.tag = "floor";
+	m_objectMaterials.push_back(floorMaterial);
+	// wallpaper
+	OBJECT_MATERIAL wallMaterial;
+	wallMaterial.diffuseColor = glm::vec3(0.45f, 0.45f, 0.45f);
+	wallMaterial.specularColor = glm::vec3(0.12f, 0.12f, 0.12f);
+	wallMaterial.shininess = 32.0;
+	wallMaterial.tag = "wallpaper";
+	m_objectMaterials.push_back(wallMaterial);
+	// ceiling
+	OBJECT_MATERIAL ceilingMaterial;
+	ceilingMaterial.diffuseColor = glm::vec3(0.45f, 0.45f, 0.45f);
+	ceilingMaterial.specularColor = glm::vec3(0.12f, 0.12f, 0.12f);
+	ceilingMaterial.shininess = 8.0;
+	ceilingMaterial.tag = "ceiling";
+	m_objectMaterials.push_back(ceilingMaterial);
+	// soda1 (body)
+	OBJECT_MATERIAL soda1Material;
+	soda1Material.diffuseColor = glm::vec3(0.75f, 0.75f, 0.75f);
+	soda1Material.specularColor = glm::vec3(0.72f, 0.72f, 0.72f);
+	soda1Material.shininess = 64.0;
+	soda1Material.tag = "soda1";
+	m_objectMaterials.push_back(soda1Material);
+	// soda2 (red body extended)
+	OBJECT_MATERIAL soda2Material;
+	soda2Material.diffuseColor = glm::vec3(0.75f, 0.75f, 0.75f);
+	soda2Material.specularColor = glm::vec3(0.72f, 0.72f, 0.72f);
+	soda2Material.shininess = 64.0;
+	soda2Material.tag = "soda2";
+	m_objectMaterials.push_back(soda2Material);
+	// soda top (aluminum)
+	OBJECT_MATERIAL sodaTopMaterial;
+	sodaTopMaterial.diffuseColor = glm::vec3(0.75f, 0.75f, 0.75f);
+	sodaTopMaterial.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
+	sodaTopMaterial.shininess = 128.0;
+	sodaTopMaterial.tag = "soda_top";
+	m_objectMaterials.push_back(sodaTopMaterial);
+	// tekken arcade screen
+	OBJECT_MATERIAL tekkenMaterial;
+	tekkenMaterial.diffuseColor = glm::vec3(0.7f, 0.7f, 0.7f);
+	tekkenMaterial.specularColor = glm::vec3(0.8f, 0.8f, 0.8f);
+	tekkenMaterial.shininess = 256.0;
+	tekkenMaterial.tag = "tekken";
+	m_objectMaterials.push_back(tekkenMaterial);
+	// arcade2 is the dark plain body color for arcade
+	OBJECT_MATERIAL arcade2Material;
+	arcade2Material.diffuseColor = glm::vec3(0.4f, 0.4f, 0.4f);
+	arcade2Material.specularColor = glm::vec3(0.3f, 0.3f, 0.3f);
+	arcade2Material.shininess = 32.0;
+	arcade2Material.tag = "arcade2";
+	m_objectMaterials.push_back(arcade2Material);
+	//coin_slot on arcade machine front
+	OBJECT_MATERIAL coinslotMaterial;
+	coinslotMaterial.diffuseColor = glm::vec3(0.3f, 0.3f, 0.3f);
+	coinslotMaterial.specularColor = glm::vec3(0.5f, 0.5f, 0.5f);
+	coinslotMaterial.shininess = 32.0;
+	coinslotMaterial.tag = "coin_slot";
+	m_objectMaterials.push_back(coinslotMaterial);
+	// tekken logo 'test'
+	OBJECT_MATERIAL testMaterial;
+	testMaterial.diffuseColor = glm::vec3(0.6f, 0.6f, 0.6f);
+	testMaterial.specularColor = glm::vec3(0.5f, 0.5f, 0.5f);
+	testMaterial.shininess = 64.0;
+	testMaterial.tag = "test";
+	m_objectMaterials.push_back(testMaterial);
+	// tekken fighter logo 'testt'
+	OBJECT_MATERIAL testtMaterial;
+	testtMaterial.diffuseColor = glm::vec3(0.6f, 0.6f, 0.6f);
+	testtMaterial.specularColor = glm::vec3(0.5f, 0.5f, 0.5f);
+	testtMaterial.shininess = 64.0;
+	testtMaterial.tag = "testt";
+	m_objectMaterials.push_back(testtMaterial);
+	// arcade yellow buttons
+	OBJECT_MATERIAL yellowMaterial;
+	yellowMaterial.diffuseColor = glm::vec3(0.75f, 0.75f, 0.75f);
+	yellowMaterial.specularColor = glm::vec3(0.72f, 0.72f, 0.72f);
+	yellowMaterial.shininess = 64.0;
+	yellowMaterial.tag = "yellow";
+	m_objectMaterials.push_back(yellowMaterial);
+	// linen lamp shade
+	OBJECT_MATERIAL linenMaterial;
+	linenMaterial.diffuseColor = glm::vec3(0.7f, 0.7f, 0.7f);
+	linenMaterial.specularColor = glm::vec3(0.10f, 0.10f, 0.10f);
+	linenMaterial.shininess = 8.0;
+	linenMaterial.tag = "linen";
+	m_objectMaterials.push_back(linenMaterial);
+	// leather seat + lamp body (some reflection)
+	OBJECT_MATERIAL leatherMaterial;
+	leatherMaterial.diffuseColor = glm::vec3(0.8f, 0.8f, 0.8f);
+	leatherMaterial.specularColor = glm::vec3(0.25f, 0.25f, 0.25f);
+	leatherMaterial.shininess = 16.0;
+	leatherMaterial.tag = "leather";
+	m_objectMaterials.push_back(leatherMaterial);
+	// metal 2 (part of lamp body + stool legs
+	OBJECT_MATERIAL metal2Material;
+	metal2Material.diffuseColor = glm::vec3(0.8f, 0.8f, 0.8f);
+	metal2Material.specularColor = glm::vec3(0.25f, 0.25f, 0.25f);
+	metal2Material.shininess = 32.0;
+	metal2Material.tag = "metal2";
+	m_objectMaterials.push_back(metal2Material);
+	// aluminum for can + lamp
+	OBJECT_MATERIAL aluminumMaterial;
+	aluminumMaterial.diffuseColor = glm::vec3(0.35f, 0.35f, 0.35f);
+	aluminumMaterial.specularColor = glm::vec3(0.35f, 0.35f,0.35f);
+	aluminumMaterial.shininess = 128.0;
+	aluminumMaterial.tag = "aluminum";
+	m_objectMaterials.push_back(aluminumMaterial);
+
+}
+
+/***********************************************************
+ *  SetupSceneLights()
+ *
+ *  This method is called to add and configure the light
+ *  sources for the 3D scene.  There are up to 4 light sources.
+ ***********************************************************/
+void SceneManager::SetupSceneLights()
+{
+	// this line of code is NEEDED for telling the shaders to render 
+	// the 3D scene with custom lighting, if no light sources have
+	// been added then the display window will be black - to use the 
+	// default OpenGL lighting then comment out the following line
+	m_pShaderManager->setBoolValue(g_UseLightingName, true);
+	
+	// Point light 1 for light bulb (white/yellow) -- Left side of bulb
+	m_pShaderManager->setVec3Value("pointLights[0].position", 14.0f, 17.0f, -5.5f);
+	m_pShaderManager->setVec3Value("pointLights[0].ambient", 0.25f, 0.25f, 0.25f);
+	m_pShaderManager->setVec3Value("pointLights[0].diffuse", 1.5f,1.5f,1.5f); //warm yellow/white
+	m_pShaderManager->setVec3Value("pointLights[0].specular", 1.0f, 1.0f, 1.0f); // white highlights
+	m_pShaderManager->setBoolValue("pointLights[0].bActive", true);
+
+	// Point light 2 for light bulb -- right side of bulb and positioned a bit higher to fill out the light in the shade
+	m_pShaderManager->setVec3Value("pointLights[1].position", 16.0f, 22.0f, -5.5f);
+	m_pShaderManager->setVec3Value("pointLights[1].ambient", 0.25f, 0.25f, 0.25f);
+	m_pShaderManager->setVec3Value("pointLights[1].diffuse", 1.5f, 1.5f, 1.5f); //warm yellow/white
+	m_pShaderManager->setVec3Value("pointLights[1].specular", 1.0f, 1.0f, 1.0f); // white
+	m_pShaderManager->setBoolValue("pointLights[1].bActive", true);
+
+	//positionXYZ = glm::vec3(0.0f, 16.67f, -4.4f);
+	// Point Light for arcade screen (blue/purple)
+	m_pShaderManager->setVec3Value("pointLights[2].position", 0.0f, 20.0f, -4.3f);
+	m_pShaderManager->setVec3Value("pointLights[2].ambient", 0.10f, 0.10f, 0.10f);
+	m_pShaderManager->setVec3Value("pointLights[2].diffuse", 0.90f, 0.50f, 2.0f);
+	m_pShaderManager->setVec3Value("pointLights[2].specular", 0.80f, 0.65f, 1.0f);
+	m_pShaderManager->setBoolValue("pointLights[2].bActive", true);
+
+	// Could change the spotlight to an overhead light on a ceiling fan - toggle with lmb or a key.
+
+	/* Spotlight flashlight
+	 * Position, direction, and bActive are all updated in ViewManager
+	 * Controlled by LMB (left mouse button) to toggle on/off
+	 */
+	m_pShaderManager->setVec3Value("spotLight.ambient", 0.8f, 0.8f, 0.8f);
+	m_pShaderManager->setVec3Value("spotLight.diffuse", 2.3f, 2.3f, 2.0f);
+	m_pShaderManager->setVec3Value("spotLight.specular", 1.6f, 1.6f, 1.6f);
+	m_pShaderManager->setFloatValue("spotLight.constant", 1.0f);
+	m_pShaderManager->setFloatValue("spotLight.linear", 0.007f); // distance of 600
+	m_pShaderManager->setFloatValue("spotLight.quadratic", 0.0002f); // ^
+	m_pShaderManager->setFloatValue("spotLight.cutOff", glm::cos(glm::radians(25.0f)));
+	m_pShaderManager->setFloatValue("spotLight.outerCutOff", glm::cos(glm::radians(35.0f)));
+}
+
+/***********************************************************
  *  PrepareScene()
  *
  *  This method is used for preparing the 3D scene by loading
@@ -442,6 +626,10 @@ void SceneManager::PrepareScene()
 {
 	// load the textures for the scene
 	LoadSceneTextures();
+	// define the materials for objects in the scene
+	DefineObjectMaterials();
+	// add and define the light sources for the scene
+	SetupSceneLights();
 
 	// only one instance of a particular mesh needs to be
 	// loaded in memory no matter how many times it is drawn
@@ -502,6 +690,7 @@ void SceneManager::RenderWalls()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	// draw the shader texture for floor
 	SetShaderTexture("floor");
+	SetShaderMaterial("floor");
 	//SetShaderColor(0.51f,0.28f,0.086f,1);
 	// draw the mesh with transformation values
 	m_basicMeshes->DrawPlaneMesh();
@@ -514,6 +703,7 @@ void SceneManager::RenderWalls()
 	positionXYZ = glm::vec3(0.0f, 28.0f, 6.0f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("ceiling");
+	SetShaderMaterial("ceiling");
 	m_basicMeshes->DrawPlaneMesh();
 	
 	/****************************************************************/
@@ -526,6 +716,7 @@ void SceneManager::RenderWalls()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.62f, 0.455f, 0.278f, 1);
 	SetShaderTexture("wallpaper");
+	SetShaderMaterial("wallpaper");
 	m_basicMeshes->DrawPlaneMesh();
 	/****************************************************************/
 	// Right side Wall
@@ -574,6 +765,7 @@ void SceneManager::RenderSoda()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.396f, 0.341f, 0.275f, 1); //silver base
 	SetShaderTexture("aluminum");
+	SetShaderMaterial("aluminum");
 	m_basicMeshes->DrawTaperedCylinderMesh(true, false, true); //no bottom
 	/****************************************************************/
 	// Body of soda can
@@ -584,6 +776,7 @@ void SceneManager::RenderSoda()
 	positionXYZ = glm::vec3(-8.0f, 0.4f, 4.0f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("soda1");
+	SetShaderMaterial("soda1");
 	SetTextureUVScale(-1.0f, 1.0f); // flip the texture
 	//SetShaderColor(0.427f, 0.039f, 0.0f, 1.0); //red body
 	m_basicMeshes->DrawCylinderMesh();
@@ -597,6 +790,7 @@ void SceneManager::RenderSoda()
 	positionXYZ = glm::vec3(-8.0f, 2.4f, 4.0f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("soda2");
+	SetShaderMaterial("soda2");
 	//SetShaderColor(0.427f, 0.039f, 0.0f, 1); //red body
 	//SetShaderMaterial("red_body");
 	m_basicMeshes->DrawHalfSphereMesh();
@@ -609,6 +803,7 @@ void SceneManager::RenderSoda()
 	positionXYZ = glm::vec3(-8.0f, 2.67f, 4.0f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("soda_top");
+	SetShaderMaterial("soda_top");
 	//SetShaderColor(0.396f, 0.341f, 0.275f, 1); //silver
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
@@ -620,6 +815,7 @@ void SceneManager::RenderSoda()
 	positionXYZ = glm::vec3(-8.0f, 2.71f, 4.0f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("aluminum");
+	SetShaderMaterial("aluminum");
 	//SetShaderColor(0.500f, 0.410f, 0.350f, 1); //bright silver
 	m_basicMeshes->DrawTorusMesh();
 }
@@ -647,6 +843,7 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.300f, 0.082f, 0.039f, 1);
 	SetShaderTexture("leather");
+	SetShaderMaterial("leather");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// tapered cylinder base piece
@@ -658,6 +855,7 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.252f, 0.082f, 0.039f, 1);
 	SetShaderTexture("metal2");
+	SetShaderMaterial("metal2");
 	m_basicMeshes->DrawTaperedCylinderMesh();
 	/****************************************************************/
 	// elongated cylinder pole
@@ -669,6 +867,7 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.302f, 0.082f, 0.039f, 1);
 	SetShaderTexture("leather");
+	SetShaderMaterial("leather");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// socket for bulb
@@ -680,6 +879,7 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.396f, 0.341f, 0.275f, 1); //silver
 	SetShaderTexture("metal2");
+	SetShaderMaterial("metal2");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// metal switch on side of socket
@@ -699,8 +899,9 @@ void SceneManager::RenderLamp()
 	ZrotationDegrees = 0.0f;
 	positionXYZ = glm::vec3(15.0f, 16.5f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(0.500f, 0.410f, 0.350f, 1); //bright silver
+	//SetShaderColor(1.0f, 1.0f, 1.0f, 0.7f); //bright silver
 	SetShaderTexture("aluminum");
+	SetShaderMaterial("aluminum");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// torus metal hoop (meant to support shade)
@@ -712,6 +913,7 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
 	SetShaderTexture("metal2");
+	SetShaderMaterial("metal2");
 	m_basicMeshes->DrawTorusMesh();
 	/****************************************************************/
 	// top emblem on hoop (sphere)
@@ -724,17 +926,16 @@ void SceneManager::RenderLamp()
 	//SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
 	m_basicMeshes->DrawSphereMesh();
 	/****************************************************************/
-	// lamp shade
+	// lamp shade outside
 	scaleXYZ = glm::vec3(2.7f, 3.7f, 2.5f);
+	positionXYZ = glm::vec3(15.0f, 15.8f, -5.5f);
 	XrotationDegrees = 0.0f;
 	YrotationDegrees = 0.0f;
 	ZrotationDegrees = 0.0f;
-	positionXYZ = glm::vec3(15.0f, 15.8f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(0.941f, 0.675f, 0.341f, 1); //beige
 	SetShaderTexture("linen");
+	SetShaderMaterial("linen");
 	m_basicMeshes->DrawTaperedCylinderMesh(false, false, true);
-	//drawtop = false, drawbottom = false, drawsides = true (for empty lamp shade)
 	/****************************************************************/
 	// Torus connecting hoop to shade
 	scaleXYZ = glm::vec3(1.4f, 0.4f, 0.8f);
@@ -745,8 +946,14 @@ void SceneManager::RenderLamp()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.141f, 0.102f, 0.039f, 1); //brown/black
 	SetShaderTexture("metal2");
+	SetShaderMaterial("metal2");
 	m_basicMeshes->DrawTorusMesh();
 }
+/***********************************************************
+ * RenderChair()
+ *
+ * This method is used for rendering the stool/chair object.
+ **********************************************************/
 void SceneManager::RenderChair()
 {
 	// declare the variables for the transformations
@@ -765,6 +972,7 @@ void SceneManager::RenderChair()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.102f, 0.082f, 0.039f, 1); //black for legs
 	SetShaderTexture("metal2");
+	SetShaderMaterial("metal2");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// right leg
@@ -819,9 +1027,14 @@ void SceneManager::RenderChair()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.102f, 0.082f, 0.039f, 1);
 	SetShaderTexture("leather");
+	SetShaderMaterial("leather");
 	m_basicMeshes->DrawCylinderMesh();
 }
-
+/***********************************************************
+ * RenderArcade()
+ *
+ * This method is used for rendering the arcade cabinet object.
+ **********************************************************/
 void SceneManager::RenderArcade()
 {
 	// declare the variables for the transformations
@@ -840,6 +1053,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.245f, 0.063f, 0.012f, 1);  //change back to black
 	SetShaderTexture("test");
+	SetShaderMaterial("test");
 	//SetShaderTexture("arcade");
 	m_basicMeshes->DrawBoxMesh();
 	/****************************************************************/
@@ -851,6 +1065,7 @@ void SceneManager::RenderArcade()
 	positionXYZ = glm::vec3(0.0f, 5.0f, -2.495f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	SetShaderTexture("coin_slot");
+	SetShaderMaterial("coin_slot");
 	m_basicMeshes->DrawPlaneMesh();
 	/****************************************************************/
 	// thin box plane for console control prism
@@ -862,6 +1077,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.145f, 0.063f, 0.012f, 1);
 	SetShaderTexture("testt");
+	SetShaderMaterial("testt");
 	m_basicMeshes->DrawBoxMesh();
 	/****************************************************************/
 	// Prism for controls
@@ -873,6 +1089,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.245f, 0.063f, 0.012f, 1);
 	SetShaderTexture("test");
+	SetShaderMaterial("test");
 	// wrapping test
 	int textureSlot = FindTextureSlot("test"); // get texture slot
 	GLuint textureID = FindTextureID("test"); // get ID
@@ -896,6 +1113,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.145f, 0.063f, 0.012f, 1);
 	SetShaderTexture("arcade2");
+	SetShaderMaterial("arcade2");
 	m_basicMeshes->DrawPrismMesh();
 	/****************************************************************/
 	// Prisms for screen box
@@ -917,17 +1135,19 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.245f, 0.063f, 0.012f, 1);
 	SetShaderTexture("test");
+	SetShaderMaterial("test");
 	m_basicMeshes->DrawBoxMesh();
 	/****************************************************************/
 	// Plane for screen -- emit light & add texture later
-	scaleXYZ = glm::vec3(3.1f, 1.0f, 2.4f);
+	scaleXYZ = glm::vec3(3.95f, 1.0f, 2.8f); //old 3.1,1.0,2.4 || 3.95
 	XrotationDegrees = 89.0f;// rotate flat to face camera
 	YrotationDegrees = 0.0f;
 	ZrotationDegrees = 0.0f;
-	positionXYZ = glm::vec3(0.0f, 16.67f, -4.4f);
+	positionXYZ = glm::vec3(0.0f, 16.67f, -4.4f); //old 0.0,16.67,-4.4
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.094f, 0.267f, 0.369f, 1); //blue
 	SetShaderTexture("tekken");
+	SetShaderMaterial("tekken");
 	m_basicMeshes->DrawPlaneMesh();
 	/****************************************************************/
 	// Top of Arcade Machine
@@ -939,6 +1159,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.145f, 0.063f, 0.012f, 1);
 	SetShaderTexture("testt");
+	SetShaderMaterial("testt");
 	m_basicMeshes->DrawBoxMesh();
 	/****************************************************************/
 	// Trim/Decal for Arcade Machine
@@ -952,6 +1173,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.145f, 0.063f, 0.012f, 1);
 	SetShaderTexture("arcade2");
+	SetShaderMaterial("arcade2");
 	m_basicMeshes->DrawBoxMesh();
 	// left side top trim
 	scaleXYZ = glm::vec3(0.5f, 0.6f, 5.5f);
@@ -1001,6 +1223,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.396f, 0.341f, 0.275f, 1); //silver
 	SetShaderTexture("aluminum");
+	SetShaderMaterial("aluminum");
 	m_basicMeshes->DrawCylinderMesh();
 	// Joystick sphere
 	scaleXYZ = glm::vec3(0.4f, 0.4f, 0.4f);
@@ -1011,6 +1234,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.427f, 0.039f, 0.0f, 1); //red
 	SetShaderTexture("soda2");
+	SetShaderMaterial("soda2");
 	m_basicMeshes->DrawSphereMesh();
 	/****************************************************************/
 	// Button base left
@@ -1022,6 +1246,7 @@ void SceneManager::RenderArcade()
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.445f, 0.063f, 0.012f, 1);
 	SetShaderTexture("yellow"); // yellow for all button bases & buttons
+	SetShaderMaterial("yellow");
 	m_basicMeshes->DrawCylinderMesh();
 	// button base right
 	scaleXYZ = glm::vec3(0.5f, 0.1f, 0.5f);
