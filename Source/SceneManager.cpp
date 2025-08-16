@@ -5,7 +5,7 @@
 // responsible for managing the preparation and rendering of 3D scenes. It 
 // handles textures, materials, lighting configurations, and object rendering.
 //
-// AUTHOR: Brian Battersby
+// ORIGNIAL AUTHOR: Brian Battersby
 // INSTITUTION: Southern New Hampshire University (SNHU)
 // COURSE: CS-330 Computational Graphics and Visualization
 //
@@ -450,15 +450,15 @@ void SceneManager::DefineObjectMaterials()
 
 	// floor
 	OBJECT_MATERIAL floorMaterial;
-	floorMaterial.diffuseColor = glm::vec3(0.45f, 0.45f, 0.45f);
-	floorMaterial.specularColor = glm::vec3(0.12f, 0.12f, 0.12f);
+	floorMaterial.diffuseColor = glm::vec3(0.13f, 0.13f, 0.13f); //.23 before
+	floorMaterial.specularColor = glm::vec3(0.06f, 0.06f, 0.06f); //0.06
 	floorMaterial.shininess = 8.0;
 	floorMaterial.tag = "floor";
 	m_objectMaterials.push_back(floorMaterial);
 	// wallpaper
 	OBJECT_MATERIAL wallMaterial;
 	wallMaterial.diffuseColor = glm::vec3(0.45f, 0.45f, 0.45f);
-	wallMaterial.specularColor = glm::vec3(0.12f, 0.12f, 0.12f);
+	wallMaterial.specularColor = glm::vec3(0.15f, 0.15f, 0.15f);
 	wallMaterial.shininess = 32.0;
 	wallMaterial.tag = "wallpaper";
 	m_objectMaterials.push_back(wallMaterial);
@@ -485,22 +485,22 @@ void SceneManager::DefineObjectMaterials()
 	m_objectMaterials.push_back(soda2Material);
 	// soda top (aluminum)
 	OBJECT_MATERIAL sodaTopMaterial;
-	sodaTopMaterial.diffuseColor = glm::vec3(0.75f, 0.75f, 0.75f);
-	sodaTopMaterial.specularColor = glm::vec3(1.0f, 1.0f, 1.0f);
-	sodaTopMaterial.shininess = 128.0;
+	sodaTopMaterial.diffuseColor = glm::vec3(0.25f, 0.25f, 0.25f);
+	sodaTopMaterial.specularColor = glm::vec3(0.15f, 0.15f, 0.15f);
+	sodaTopMaterial.shininess = 90.0;
 	sodaTopMaterial.tag = "soda_top";
 	m_objectMaterials.push_back(sodaTopMaterial);
 	// tekken arcade screen
 	OBJECT_MATERIAL tekkenMaterial;
-	tekkenMaterial.diffuseColor = glm::vec3(0.7f, 0.7f, 0.7f);
+	tekkenMaterial.diffuseColor = glm::vec3(0.8f, 0.8f, 0.8f);
 	tekkenMaterial.specularColor = glm::vec3(0.8f, 0.8f, 0.8f);
 	tekkenMaterial.shininess = 256.0;
 	tekkenMaterial.tag = "tekken";
 	m_objectMaterials.push_back(tekkenMaterial);
 	// arcade2 is the dark plain body color for arcade
 	OBJECT_MATERIAL arcade2Material;
-	arcade2Material.diffuseColor = glm::vec3(0.4f, 0.4f, 0.4f);
-	arcade2Material.specularColor = glm::vec3(0.3f, 0.3f, 0.3f);
+	arcade2Material.diffuseColor = glm::vec3(0.5f, 0.5f, 0.5f);
+	arcade2Material.specularColor = glm::vec3(0.4f, 0.4f, 0.4f);
 	arcade2Material.shininess = 32.0;
 	arcade2Material.tag = "arcade2";
 	m_objectMaterials.push_back(arcade2Material);
@@ -555,9 +555,9 @@ void SceneManager::DefineObjectMaterials()
 	m_objectMaterials.push_back(metal2Material);
 	// aluminum for can + lamp
 	OBJECT_MATERIAL aluminumMaterial;
-	aluminumMaterial.diffuseColor = glm::vec3(0.35f, 0.35f, 0.35f);
-	aluminumMaterial.specularColor = glm::vec3(0.35f, 0.35f,0.35f);
-	aluminumMaterial.shininess = 128.0;
+	aluminumMaterial.diffuseColor = glm::vec3(0.25f, 0.25f, 0.25f);
+	aluminumMaterial.specularColor = glm::vec3(0.15f, 0.15f,0.15f);
+	aluminumMaterial.shininess = 90.0;
 	aluminumMaterial.tag = "aluminum";
 	m_objectMaterials.push_back(aluminumMaterial);
 
@@ -576,28 +576,37 @@ void SceneManager::SetupSceneLights()
 	// been added then the display window will be black - to use the 
 	// default OpenGL lighting then comment out the following line
 	m_pShaderManager->setBoolValue(g_UseLightingName, true);
-	
+
+	// Directional light setup (global ambient light, can add a tiny bit of diffuse to brighten scene)
+	/*m_pShaderManager->setVec3Value("directionalLight.direction", -0.05f, -0.3f, -0.1f);
+	m_pShaderManager->setVec3Value("directionalLight.ambient", 0.05f, 0.05f, 0.05f);
+	m_pShaderManager->setVec3Value("directionalLight.diffuse", 0.30f, 0.30f, 0.30f); 
+	m_pShaderManager->setVec3Value("directionalLight.specular", 0.0f, 0.0f, 0.0f);
+	m_pShaderManager->setBoolValue("directionalLight.bActive", true);*/
+	// I think the shadows look better without it.
+
 	// Point light 1 for light bulb (white/yellow) -- Left side of bulb
 	m_pShaderManager->setVec3Value("pointLights[0].position", 14.0f, 17.0f, -5.5f);
 	m_pShaderManager->setVec3Value("pointLights[0].ambient", 0.25f, 0.25f, 0.25f);
-	m_pShaderManager->setVec3Value("pointLights[0].diffuse", 1.5f,1.5f,1.5f); //warm yellow/white
+	m_pShaderManager->setVec3Value("pointLights[0].diffuse", 3.0f,3.0f,2.7f); //warm yellow/white
 	m_pShaderManager->setVec3Value("pointLights[0].specular", 1.0f, 1.0f, 1.0f); // white highlights
 	m_pShaderManager->setBoolValue("pointLights[0].bActive", true);
 
-	// Point light 2 for light bulb -- right side of bulb and positioned a bit higher to fill out the light in the shade
-	m_pShaderManager->setVec3Value("pointLights[1].position", 16.0f, 22.0f, -5.5f);
-	m_pShaderManager->setVec3Value("pointLights[1].ambient", 0.25f, 0.25f, 0.25f);
-	m_pShaderManager->setVec3Value("pointLights[1].diffuse", 1.5f, 1.5f, 1.5f); //warm yellow/white
+	// Point light 2 for light bulb -- right side of bulb 
+	m_pShaderManager->setVec3Value("pointLights[1].position", 16.0f, 17.0f, -5.5f);
+	m_pShaderManager->setVec3Value("pointLights[1].ambient", 0.25f, 0.25f, 0.25f); //0.25
+	m_pShaderManager->setVec3Value("pointLights[1].diffuse", 3.0f, 3.0f, 2.7f); // 1.5 (test out: 1.5 to 2.0,2.0,1.9
 	m_pShaderManager->setVec3Value("pointLights[1].specular", 1.0f, 1.0f, 1.0f); // white
 	m_pShaderManager->setBoolValue("pointLights[1].bActive", true);
 
-	//positionXYZ = glm::vec3(0.0f, 16.67f, -4.4f);
+
 	// Point Light for arcade screen (blue/purple)
 	m_pShaderManager->setVec3Value("pointLights[2].position", 0.0f, 20.0f, -4.3f);
-	m_pShaderManager->setVec3Value("pointLights[2].ambient", 0.10f, 0.10f, 0.10f);
+	m_pShaderManager->setVec3Value("pointLights[2].ambient", 0.15f, 0.15f, 0.15f);
 	m_pShaderManager->setVec3Value("pointLights[2].diffuse", 0.90f, 0.50f, 2.0f);
 	m_pShaderManager->setVec3Value("pointLights[2].specular", 0.80f, 0.65f, 1.0f);
 	m_pShaderManager->setBoolValue("pointLights[2].bActive", true);
+
 
 	// Could change the spotlight to an overhead light on a ceiling fan - toggle with lmb or a key.
 
@@ -854,8 +863,8 @@ void SceneManager::RenderLamp()
 	positionXYZ = glm::vec3(15.0f, 0.3f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.252f, 0.082f, 0.039f, 1);
-	SetShaderTexture("metal2");
-	SetShaderMaterial("metal2");
+	//SetShaderTexture("metal2");
+	//SetShaderMaterial("metal2");
 	m_basicMeshes->DrawTaperedCylinderMesh();
 	/****************************************************************/
 	// elongated cylinder pole
@@ -866,8 +875,8 @@ void SceneManager::RenderLamp()
 	positionXYZ = glm::vec3(15.0f, 0.8f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
 	//SetShaderColor(0.302f, 0.082f, 0.039f, 1);
-	SetShaderTexture("leather");
-	SetShaderMaterial("leather");
+	//SetShaderTexture("leather");
+	//SetShaderMaterial("leather");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// socket for bulb
@@ -899,9 +908,10 @@ void SceneManager::RenderLamp()
 	ZrotationDegrees = 0.0f;
 	positionXYZ = glm::vec3(15.0f, 16.5f, -5.5f);
 	SetTransformations(scaleXYZ, XrotationDegrees, YrotationDegrees, ZrotationDegrees, positionXYZ);
-	//SetShaderColor(1.0f, 1.0f, 1.0f, 0.7f); //bright silver
-	SetShaderTexture("aluminum");
-	SetShaderMaterial("aluminum");
+	SetShaderColor(3.0f, 2.7f, 2.0f, 1.0f);
+	// switched back to a bright shader color to simulate a turned on light bulb.
+	//SetShaderTexture("aluminum");
+	//SetShaderMaterial("aluminum");
 	m_basicMeshes->DrawCylinderMesh();
 	/****************************************************************/
 	// torus metal hoop (meant to support shade)
