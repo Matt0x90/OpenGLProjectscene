@@ -15,7 +15,7 @@ This project required us to pick a scene to recreate in OpenGL. This involved ad
 * Console Output for controls/menu
 * Utilized the following: OpenGL, GLEW, GLFW, and glm.
 * Separated Logic and utilized OOP principles. 
-* Added extra unrequired documentation, utilized doc automation tools to help gather information, then modified and created a wiki page with markdown. [Wiki](https://github.com/MatthewTheHall/OpenGLProjectscene/wiki/Project)
+* Added extra unrequired documentation, utilized doc automation tools to help gather information, then modified and created a wiki page with markdown. [Wiki](https://github.com/MatthewTheHall/OpenGLProjectscene/wiki)
 
 
 ## Pictures During Progress
